@@ -6,6 +6,8 @@ public class Bullet : MonoBehaviour
 {
     public GameObject effect;
 
+    public int actorNumber;
+
     private void Start()
     {
         GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 1000f);
