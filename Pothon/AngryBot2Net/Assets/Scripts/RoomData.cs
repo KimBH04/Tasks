@@ -38,11 +38,13 @@ public class RoomData : MonoBehaviour
         // 유저명 설정
         photonManager.SetUserID();
         // 룸의 속성 정의
-        RoomOptions ro = new RoomOptions();
-        ro.MaxPlayers = 20; // 룸에 입장할 수 잇는 최대 접속자 수
-        ro.IsOpen = true; // 룸의 오픈 여부
-        ro.IsVisible = true; // 로비에서 룸 목록에 노출시킬지 여부
-                             // 룸 접속
+        RoomOptions ro = new()
+        {
+            MaxPlayers = 20, // 룸에 입장할 수 잇는 최대 접속자 수
+            IsOpen = true, // 룸의 오픈 여부
+            IsVisible = true // 로비에서 룸 목록에 노출시킬지 여부
+        };
+        // 룸 접속
         PhotonNetwork.JoinOrCreateRoom(roomName, ro, TypedLobby.Default);
     }
 }

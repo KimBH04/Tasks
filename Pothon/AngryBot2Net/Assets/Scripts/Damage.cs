@@ -36,25 +36,29 @@ public class Damage : MonoBehaviourPunCallbacks
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (currHP <= 0)
+        if (currHP > 0 && collision.gameObject.CompareTag("BULLET"))
         {
-            // 자신의 PhotonView 일 때만 메시지를 출력
-            if (photonView.IsMine)
+            currHP -= 20;
+            if (currHP <= 0)
             {
-                // 총알의 ActorNumber를 추출
-                var actorNo = collision.collider.GetComponent<Bullet>().actorNumber;
-                // ActorNumber로 현재 룸에 입장한 플레이어를 추출
-                Player lastShootPlayer = PhotonNetwork.CurrentRoom.GetPlayer(actorNo);
-                // 메시지 출력을 위한 문자열 포맷
-                string msg = string.Format("\n<color=#00ff00>{0}</color> is killed by <color=#ff0000>{1}</color>",
+                // 자신의 PhotonView 일 때만 메시지를 출력
+                if (photonView.IsMine)
+                {
+                    // 총알의 ActorNumber를 추출
+                    var actorNo = collision.collider.GetComponent<Bullet>().actorNumber;
+                    // ActorNumber로 현재 룸에 입장한 플레이어를 추출
+                    Player lastShootPlayer = PhotonNetwork.CurrentRoom.GetPlayer(actorNo);
+                    // 메시지 출력을 위한 문자열 포맷
+                    string msg = string.Format("\n<color=#00ff00>{0}</color> is killed by <color=#ff0000>{1}</color>",
 
-                photonView.Owner.NickName,
-                lastShootPlayer.NickName);
+                    photonView.Owner.NickName,
+                    lastShootPlayer.NickName);
 
-                photonView.RPC(nameof(KillMessage), RpcTarget.AllBufferedViaServer, msg);
+                    photonView.RPC(nameof(KillMessage), RpcTarget.AllBufferedViaServer, msg);
 
+                }
+                StartCoroutine(PlayerDie());
             }
-            StartCoroutine(PlayerDie());
         }
     }
 

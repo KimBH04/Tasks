@@ -16,21 +16,19 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private Transform[] points;
 
-    void Awake()
+    private IEnumerator Start()
     {
+        yield return new WaitForSeconds(0.1f);
+
         CreatePlayer();
-        // 접속 정보 추출 및 표시
         SetRoomInfo();
-        // Exit 버튼 이벤트 연결
         exitBtn.onClick.AddListener(() => OnExitClick());
     }
-    void CreatePlayer()
+    private void CreatePlayer()
     {
-        // 출현 위치 정보를 배열에 저장
         points = GameObject.Find("SpawnPointGroup").GetComponentsInChildren<Transform>();
         int idx = Random.Range(1, points.Length);
 
-        // 네트워크상에 캐릭터 생성
         PhotonNetwork.Instantiate("Player",
 
         points[idx].position,
@@ -39,30 +37,30 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
 
     // 룸 접속 정보를 출력
-    void SetRoomInfo()
+    private void SetRoomInfo()
     {
         Room room = PhotonNetwork.CurrentRoom;
         roomName.text = room.Name;
         connectInfo.text = $"({room.PlayerCount}/{room.MaxPlayers})";
     }
-    // Exit 버튼의 OnClick에 연결할 함수
+
     private void OnExitClick()
     {
         PhotonNetwork.LeaveRoom();
     }
-    // 포톤 룸에서 퇴장했을 때 호출되는 콜백함수
+
     public override void OnLeftRoom()
     {
         SceneManager.LoadScene("Lobby");
     }
-    // 룸으로 새로운 네트워크 유저가 입장했때 호출되는 콜백함수
+
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         SetRoomInfo();
         string msg = $"\n<color=#00ff00>{newPlayer.NickName}</color> is joined room";
         msgList.text += msg;
     }
-    // 룸에서 네트워크 유저가 퇴장했때 호출되는 콜백함수
+
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         SetRoomInfo();

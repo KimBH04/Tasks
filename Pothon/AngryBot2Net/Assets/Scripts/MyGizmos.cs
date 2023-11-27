@@ -5,7 +5,7 @@ using UnityEngine;
 public class MyGizmos : MonoBehaviour
 {
     public Color _color = Color.green;
-    public float _radius = .1f;
+    public float _radius = 0.1f;
 
     void OnDrawGizmos()
     {
