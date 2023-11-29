@@ -838,7 +838,13 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
+    Build: 0
+    Game Performance: 0
+    Legacy Analytics: 0
+    Purchasing: 0
+    UDP: 0
     UNet: 1
+    Unity Ads: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -858,11 +864,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 2ed49446-54fb-477f-a576-c193a9632f3d
+  cloudProjectId: 5d696f41-3a88-49b1-915f-470896cc3f87
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: AngryBot2Net (1)
-  organizationId: wlgudwns6
+  organizationId: kimbh0437
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
